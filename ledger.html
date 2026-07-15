@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Ledger</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+
+*{ box-sizing:border-box; }
+
+:root{
+  --bg:        #200707;
+  --card:      rgba(247,222,185,.14);
+  --gold:      #d8c08d;
+  --gold-lt:   #efe2bb;
+  --cream:     #f7efe7;
+  --muted:     #ccb7aa;
+  --accent:    #b15d63;
+  --ease:      cubic-bezier(.23,1,.32,1);
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  padding:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:"DM Sans", sans-serif;
+  color:var(--cream);
+  background:
+    radial-gradient(circle at 20% 18%, rgba(177,93,99,.18), transparent 45%),
+    radial-gradient(circle at 82% 78%, rgba(182,168,132,.12), transparent 45%),
+    var(--bg);
+}
+
+.card{
+  width:min(460px,100%);
+  padding:50px 40px;
+  text-align:center;
+  border-radius:26px;
+  background:var(--card);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:0 25px 60px rgba(0,0,0,.4);
+}
+
+.eyebrow{
+  letter-spacing:4px;
+  text-transform:uppercase;
+  font-size:.75rem;
+  color:var(--muted);
+  margin:0 0 14px;
+}
+
+h1{
+  font-family:"Cormorant Garamond", serif;
+  font-weight:700;
+  font-size:2.3rem;
+  margin:0 0 12px;
+  color:var(--gold-lt);
+}
+
+.sub{
+  color:var(--muted);
+  line-height:1.7;
+  margin:0 0 30px;
+  font-size:.92rem;
+}
+
+.dots{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:30px;
+}
+
+.dot{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:"Cormorant Garamond", serif;
+  font-size:.95rem;
+  color:rgba(255,255,255,.35);
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.03);
+  transition:.4s var(--ease);
+}
+
+.dot.found{
+  color:#2b1a0d;
+  background:var(--gold);
+  border-color:var(--gold);
+  box-shadow:0 0 16px rgba(216,192,141,.5);
+  transform:scale(1.08);
+}
+
+form{
+  display:flex;
+  gap:10px;
+  margin-bottom:16px;
+}
+
+input[type=text]{
+  flex:1;
+  min-width:0;
+  padding:14px 18px;
+  border-radius:50px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.05);
+  color:var(--cream);
+  font-size:.95rem;
+  outline:none;
+  transition:.3s;
+}
+
+input[type=text]:focus{
+  border-color:var(--gold);
+  background:rgba(255,255,255,.08);
+}
+
+button{
+  padding:14px 26px;
+  border:none;
+  border-radius:50px;
+  background:var(--gold);
+  color:#221414;
+  font-weight:600;
+  font-size:.92rem;
+  cursor:pointer;
+  transition:.3s;
+  position:relative;
+  overflow:hidden;
+  flex-shrink:0;
+}
+
+button::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-60%;
+  width:35%;
+  height:100%;
+  background:linear-gradient(120deg, transparent, rgba(255,255,255,.6), transparent);
+  transform:skewX(-20deg);
+  transition:left .6s var(--ease);
+}
+
+button:hover::after{ left:130%; }
+
+button:hover{
+  background:var(--gold-lt);
+  transform:translateY(-2px);
+}
+
+.status{
+  min-height:22px;
+  font-style:italic;
+  color:var(--muted);
+  font-size:.88rem;
+  transition:color .3s;
+}
+
+.status.good{ color:var(--gold-lt); }
+.status.bad{ color:#d99494; }
+
+.finale{
+  margin-top:0;
+  padding-top:0;
+  border-top:1px solid transparent;
+  opacity:0;
+  max-height:0;
+  overflow:hidden;
+  transition:.6s var(--ease);
+}
+
+.finale.show{
+  margin-top:26px;
+  padding-top:26px;
+  border-top-color:rgba(255,255,255,.1);
+  opacity:1;
+  max-height:220px;
+}
+
+.finale h2{
+  font-family:"Cormorant Garamond", serif;
+  color:var(--gold-lt);
+  font-size:1.5rem;
+  margin:0 0 10px;
+}
+
+.finale p{
+  color:var(--muted);
+  line-height:1.7;
+  font-size:.88rem;
+  margin:0;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ transition-duration:.01ms !important; }
+}
+
+@media (max-width:420px){
+  .card{ padding:38px 26px; }
+  form{ flex-direction:column; }
+}
+
+</style>
+</head>
+<body>
+
+  <div class="card">
+
+    <p class="eyebrow">✦ The Ledger ✦</p>
+    <h1>Seven Flags, One Vault</h1>
+    <p class="sub">Seven flags are scattered through the site. Bring each one here to add it to the ledger.</p>
+
+    <div class="dots" id="dots"></div>
+
+    <form id="form">
+      <input type="text" id="input" placeholder="flag{...}" autocomplete="off" spellcheck="false">
+      <button type="submit">Submit</button>
+    </form>
+
+    <p class="status" id="status">0 / 7 secured</p>
+
+    <div class="finale" id="finale">
+      <h2>Ledger complete.</h2>
+      <p>Seven corners of one small site, all found. You read the comments, checked the storage, and waited for the debugger. Happy birthday hunting. 🤍</p>
+    </div>
+
+  </div>
+
+<script>
+
+const hashes = [
+  "44ee816cb3bef404c325fcd3789ec36738b0e85e3d184b59abfc4d17afe88eaa",
+  "fc2805d20d50346fb4d09de408c66a125ddfbdeab7e69fe82a32fedac9f32bbb",
+  "c150e33853dfda1aae80ceeb22baa4fabb76e7cfd3836e4cca912e698fe28e87",
+  "1f95add8ee4084c989d3019b2fbdf25dcb7b8637cb98a5f1c8d04a1285376824",
+  "06d6bd32139f3e69676d2f3b64a94824c21bc425b856d7d29ff7be0f87db146e",
+  "73e907e44d82e50039f618fd3045323d27b6aa5116c8a5fbb3d26ed4149b9290",
+  "b5ec93b46488d9ff14c8e69add7d04e2812591019e916c6a8da5c47bb10b6fdc"
+];
+
+const STORAGE_KEY = "mrmi_ledger";
+
+const dotsEl = document.getElementById("dots");
+const formEl = document.getElementById("form");
+const inputEl = document.getElementById("input");
+const statusEl = document.getElementById("status");
+const finaleEl = document.getElementById("finale");
+
+let found = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"));
+
+function renderDots(){
+
+    dotsEl.innerHTML = "";
+
+    hashes.forEach((_, i) => {
+
+        const dot = document.createElement("div");
+        dot.className = "dot" + (found.has(i) ? " found" : "");
+        dot.textContent = i + 1;
+        dotsEl.appendChild(dot);
+
+    });
+
+    statusEl.textContent = `${found.size} / ${hashes.length} secured`;
+    statusEl.classList.remove("good","bad");
+
+    if(found.size === hashes.length){
+        finaleEl.classList.add("show");
+    }
+
+}
+
+async function sha256(text){
+
+    const data = new TextEncoder().encode(text);
+    const digest = await crypto.subtle.digest("SHA-256", data);
+
+    return [...new Uint8Array(digest)]
+        .map(b => b.toString(16).padStart(2,"0"))
+        .join("");
+
+}
+
+formEl.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const raw = inputEl.value.trim().toLowerCase();
+    if(!raw) return;
+
+    if(!crypto.subtle){
+        statusEl.textContent = "This browser can't check flags securely — try a different one.";
+        statusEl.classList.add("bad");
+        return;
+    }
+
+    const hash = await sha256(raw);
+    const index = hashes.indexOf(hash);
+
+    if(index === -1){
+
+        statusEl.textContent = "Not in the ledger... yet.";
+        statusEl.classList.add("bad");
+
+    } else if(found.has(index)){
+
+        statusEl.textContent = "Already secured — try another.";
+        statusEl.classList.add("bad");
+
+    } else {
+
+        found.add(index);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify([...found]));
+
+        statusEl.textContent = `Flag ${index + 1} secured.`;
+        statusEl.classList.add("good");
+
+        inputEl.value = "";
+        renderDots();
+
+    }
+
+});
+
+renderDots();
+
+</script>
+
+</body>
+</html>
