@@ -1676,7 +1676,7 @@ body{
         radial-gradient(circle at 18% 18%, rgba(177,93,99,.14), transparent 45%),
         radial-gradient(circle at 82% 74%, rgba(182,168,132,.10), transparent 45%);
     background-attachment: fixed;
-    background-size: 200% 200%;
+    background-size: 100% 100%;
     animation: ambient-drift 24s ease-in-out infinite;
 }
 
@@ -1693,7 +1693,7 @@ body{
     height: 3px;
     width: 0%;
     background: linear-gradient(90deg, var(--gold), var(--accent), #edc99a);
-    background-size: 200% 100%;
+    background-size: 100% 100%;
     z-index: 2000;
     box-shadow: 0 0 10px rgba(216,192,141,.55);
     animation: progress-shimmer 4s linear infinite;
@@ -1701,7 +1701,7 @@ body{
 
 @keyframes progress-shimmer{
     0%{ background-position: 0% 0; }
-    100%{ background-position: 200% 0; }
+    100%{ background-position: 100% 0; }
 }
 
 /* scroll-triggered reveal */
