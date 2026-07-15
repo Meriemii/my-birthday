@@ -36,8 +36,6 @@ Still here? Good.
 
 That flag above was real, by the way --
 this message just clears the clutter.
-
-🙂
 `);
 
 },10000);
@@ -80,7 +78,6 @@ window.addEventListener("load", () => {
 });
 
 
-/* ---- new: falling petals in the hero ---- */
 function createPetals(){
 
     const hero = document.querySelector(".hero");
@@ -112,7 +109,6 @@ function createPetals(){
 }
 
 
-/* ---- new: thin gold progress bar reflecting scroll position ---- */
 function setupScrollProgress(){
 
     const bar = document.createElement("div");
@@ -135,8 +131,6 @@ function setupScrollProgress(){
 
 }
 
-
-/* ---- new: fade-and-rise reveal for cards as they scroll into view ---- */
 function setupReveal(){
 
     const targets = document.querySelectorAll(
@@ -164,8 +158,6 @@ function setupReveal(){
 
 }
 
-
-/* ---- new: subtle 3D tilt on memory cards while hovering ---- */
 function setupCardTilt(){
 
     document.addEventListener("mousemove", (e) => {
@@ -197,7 +189,6 @@ function setupCardTilt(){
 }
 
 
-/* ---- new: gentle parallax drift for the hero decor as the mouse moves ---- */
 function setupHeroParallax(){
 
     const heroSection = document.querySelector(".hero");
@@ -312,7 +303,9 @@ const observer = new IntersectionObserver((entries) => {
     });
 
 },{
-    threshold:0.55
+   
+    rootMargin: "-45% 0px -45% 0px",
+    threshold: 0
 });
 
 document.querySelectorAll("section").forEach(section=>{
@@ -367,42 +360,42 @@ const flowers = [
 
     {
         name:"asiatic",
-        image:"asiatic_lily.jpg"
+        image:"asiatic lily.jpg"
     },
 
     {
         name:"rose",
-        image:"black_lily.jpg"
+        image:"black lily.jpg"
     },
 
     {
         name:"iris",
-        image:"easter_lily.jpg"
+        image:"easter lily.jpg"
     },
 
     {
         name:"camellia",
-        image:"martagon_lily.jpg"
+        image:"martagon lily.jpg"
     },
 
     {
         name:"magnolia",
-        image:"oriental_lily.jpg"
+        image:"oriental lily.jpg"
     },
 
     {
         name:"jasmine",
-        image:"peach_lily.jpg"
+        image:"peach lily.jpg"
     },
 
     {
         name:"peony",
-        image:"stargazer_lily.jpg"
+        image:"stargazer lily.jpg"
     },
 
     {
         name:"gardenia",
-        image:"tiger_lily.jpg"
+        image:"tiger lily.jpg"
     }
 
 ];
@@ -1564,6 +1557,3 @@ sendMessage.addEventListener("click",()=>{
     });
 
 });
-
-
-
